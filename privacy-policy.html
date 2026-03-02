@@ -1,0 +1,325 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Privacy Policy - Markd</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #3B5BA9;
+            --primary-container: #DBE1FF;
+            --on-primary-container: #00174A;
+            --tertiary: #5E5C7E;
+            --background: #F8F9FF;
+            --surface: #FFFFFF;
+            --on-surface: #191C20;
+            --on-surface-variant: #45474F;
+            --outline: #757780;
+            --radius-lg: 24px;
+            --radius-md: 16px;
+        }
+
+        * {
+            box-sizing: border-box;
+            transition: all 0.2s ease-in-out;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+            line-height: 1.6;
+            color: var(--on-surface);
+            background-color: var(--background);
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: flex-start;
+            min-height: 100vh;
+        }
+
+        .main-container {
+            max-width: 850px;
+            width: 100%;
+            margin: 40px 20px;
+            background-color: var(--surface);
+            border-radius: var(--radius-lg);
+            box-shadow: 0 10px 40px rgba(59, 91, 169, 0.08);
+            overflow: hidden;
+            border: 1px solid rgba(59, 91, 169, 0.05);
+        }
+
+        header {
+            background-color: var(--primary-container);
+            padding: 60px 40px;
+            text-align: center;
+            position: relative;
+        }
+
+        .logo-container {
+            width: 80px;
+            height: 80px;
+            background-color: var(--primary);
+            border-radius: 20px;
+            margin: 0 auto 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            box-shadow: 0 8px 16px rgba(59, 91, 169, 0.2);
+        }
+
+        .logo-container svg {
+            width: 45px;
+            height: 45px;
+            fill: white;
+        }
+
+        h1 {
+            color: var(--on-primary-container);
+            margin: 0;
+            font-size: 32px;
+            font-weight: 800;
+            letter-spacing: -0.5px;
+        }
+
+        .last-updated {
+            color: var(--on-primary-container);
+            opacity: 0.7;
+            font-size: 14px;
+            margin-top: 8px;
+            font-weight: 500;
+        }
+
+        .content {
+            padding: 50px 60px;
+        }
+
+        @media (max-width: 600px) {
+            .content {
+                padding: 30px 25px;
+            }
+
+            header {
+                padding: 40px 20px;
+            }
+        }
+
+        h2 {
+            color: var(--primary);
+            font-size: 22px;
+            font-weight: 700;
+            margin-top: 40px;
+            margin-bottom: 16px;
+            display: flex;
+            align-items: center;
+        }
+
+        h2::before {
+            content: "";
+            display: inline-block;
+            width: 4px;
+            height: 24px;
+            background-color: var(--primary);
+            margin-right: 12px;
+            border-radius: 2px;
+        }
+
+        p,
+        li {
+            font-size: 16px;
+            color: var(--on-surface-variant);
+            margin-bottom: 16px;
+        }
+
+        ul {
+            padding-left: 20px;
+            margin-bottom: 24px;
+        }
+
+        li {
+            margin-bottom: 12px;
+            position: relative;
+            list-style: none;
+        }
+
+        li::before {
+            content: "•";
+            color: var(--primary);
+            font-weight: bold;
+            display: inline-block;
+            width: 1em;
+            margin-left: -1em;
+        }
+
+        .highlight-box {
+            background-color: #F0F3FF;
+            padding: 24px;
+            border-radius: var(--radius-md);
+            border-left: 4px solid var(--primary);
+            margin: 30px 0;
+        }
+
+        .highlight-box p {
+            margin: 0;
+            font-weight: 500;
+            color: var(--on-primary-container);
+        }
+
+        a {
+            color: var(--primary);
+            text-decoration: none;
+            font-weight: 600;
+            border-bottom: 1px solid transparent;
+        }
+
+        a:hover {
+            border-bottom: 1px solid var(--primary);
+        }
+
+        footer {
+            padding: 40px;
+            text-align: center;
+            border-top: 1px solid #eee;
+            background-color: #fafafa;
+        }
+
+        .footer-text {
+            color: var(--on-surface-variant);
+            font-size: 14px;
+            font-weight: 500;
+        }
+
+        .contact-card {
+            background: linear-gradient(135deg, var(--primary), var(--tertiary));
+            color: white;
+            padding: 32px;
+            border-radius: var(--radius-md);
+            margin-top: 50px;
+            text-align: center;
+        }
+
+        .contact-card h2 {
+            color: white;
+            justify-content: center;
+            margin-top: 0;
+        }
+
+        .contact-card h2::before {
+            display: none;
+        }
+
+        .contact-card p {
+            color: rgba(255, 255, 255, 0.9);
+            margin-bottom: 20px;
+        }
+
+        .contact-button {
+            display: inline-block;
+            background-color: white;
+            color: var(--primary);
+            padding: 12px 32px;
+            border-radius: 100px;
+            font-weight: 700;
+            text-decoration: none;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        }
+
+        .contact-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 16px rgba(0, 0, 0, 0.15);
+            border-bottom: none;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="main-container">
+        <header>
+            <div class="logo-container">
+                <svg viewBox="0 0 24 24">
+                    <path
+                        d="M12,2C6.47,2,2,6.47,2,12s4.47,10,10,10s10-4.47,10-10S17.53,2,12,2z M17,13h-4v4h-2v-4H7v-2h4V7h2v4h4V13z" />
+                </svg>
+            </div>
+            <h1>Markd Privacy Policy</h1>
+            <p class="last-updated">Last updated: March 02, 2026</p>
+        </header>
+
+        <div class="content">
+            <p>Nidus Apps built the <strong>Markd</strong> app as a Free app. This SERVICE is provided by Nidus Apps
+                at no cost and is intended for use as is.</p>
+
+            <p>This page is used to inform visitors regarding our policies with the collection, use, and disclosure of
+                Personal Information if anyone decided to use our Service.</p>
+
+            <div class="highlight-box">
+                <p>If you choose to use our Service, then you agree to the collection and use of information in relation
+                    to this policy. We will not use or share your information with anyone except as described in this
+                    Privacy Policy.</p>
+            </div>
+
+            <h2>Information Collection and Use</h2>
+            <p>For a better experience, while using our Service, we may require you to provide us with certain
+                personally identifiable information, including but not limited to Timetable data, Attendance logs, and
+                images of your schedule.</p>
+
+            <p>The information that we request will be retained <strong>on your device</strong> and is not collected by
+                us in any way unless explicitly shared by you (e.g., via exports or manual backups).</p>
+
+            <p>The app does use third-party services that may collect information used to identify you:</p>
+            <ul>
+                <li><a href="https://www.google.com/policies/privacy/" target="_blank">Google Play Services</a></li>
+                <li><a href="https://ai.google.dev/terms" target="_blank">Google Gemini (AI Processing)</a></li>
+            </ul>
+
+            <h2>AI Content & Data Processing</h2>
+            <p>Markd utilizes advanced AI technology (powered by Google Gemini) to assist in scanning and parsing
+                timetables from images or PDF files. When you use the "Scan Timetable" feature:</p>
+            <ul>
+                <li>Images or documents you provide are transmitted to Google's servers for processing.</li>
+                <li>This data is used solely to extract text and generate schedule entries for your app.</li>
+                <li>Processing is handled securely in accordance with the <a href="https://ai.google.dev/terms"
+                        target="_blank">Google AI Terms of Service</a>.</li>
+            </ul>
+
+            <h2>App Permissions</h2>
+            <p>To provide its core functionality, Markd requires the following permissions:</p>
+            <ul>
+                <li><strong>Camera:</strong> To take photos of your physical timetables for AI parsing.</li>
+                <li><strong>Storage/Media:</strong> To import timetable images/PDFs and export attendance reports
+                    (Excel/PDF).</li>
+                <li><strong>Notifications:</strong> To send reminders about upcoming classes and schedule changes.</li>
+            </ul>
+
+            <h2>Security</h2>
+            <p>We value your trust in providing us your information, thus we are striving to use commercially acceptable
+                means of protecting it. But remember that no method of transmission over the internet, or method of
+                electronic storage is 100% secure, and we cannot guarantee its absolute security.</p>
+
+            <h2>Links to Other Sites</h2>
+            <p>This Service may contain links to other sites. If you click on a third-party link, you will be directed
+                to that site. Note that these external sites are not operated by us. We strongly advise you to review
+                the Privacy Policy of these websites.</p>
+
+            <h2>Children’s Privacy</h2>
+            <p>These Services do not address anyone under the age of 13. We do not knowingly collect personally
+                identifiable information from children under 13. In the case we discover that a child under 13 has
+                provided us with personal information, we immediately delete this from our records.</p>
+
+            <div class="contact-card">
+                <h2>Questions?</h2>
+                <p>If you have any questions or suggestions about our Privacy Policy, do not hesitate to reach out.</p>
+                <a href="mailto:bettercallshiv@gmail.com" class="contact-button">Contact Support</a>
+            </div>
+        </div>
+
+        <footer>
+            <p class="footer-text">&copy; 2026 Nidus Apps. All rights reserved.</p>
+        </footer>
+    </div>
+</body>
+
+</html>
