@@ -48,24 +48,24 @@
 <div align="center">
   <table>
     <tr>
-      <td><img src="src/screenshot_01.jpg" width="300" alt="Screenshot 1"/></td>
-      <td><img src="src/screenshot_02.jpg" width="300" alt="Screenshot 2"/></td>
+      <td><img src="src/screenshot_01.png" width="300" alt="Screenshot 1"/></td>
+      <td><img src="src/screenshot_02.png" width="300" alt="Screenshot 2"/></td>
     </tr>
     <tr>
-      <td><img src="src/screenshot_03.jpg" width="300" alt="Screenshot 3"/></td>
-      <td><img src="src/screenshot_04.jpg" width="300" alt="Screenshot 4"/></td>
+      <td><img src="src/screenshot_03.png" width="300" alt="Screenshot 3"/></td>
+      <td><img src="src/screenshot_04.png" width="300" alt="Screenshot 4"/></td>
     </tr>
     <tr>
-      <td><img src="src/screenshot_05.jpg" width="300" alt="Screenshot 5"/></td>
-      <td><img src="src/screenshot_06.jpg" width="300" alt="Screenshot 6"/></td>
+      <td><img src="src/screenshot_05.png" width="300" alt="Screenshot 5"/></td>
+      <td><img src="src/screenshot_06.png" width="300" alt="Screenshot 6"/></td>
     </tr>
     <tr>
-      <td><img src="src/screenshot_07.jpg" width="300" alt="Screenshot 7"/></td>
-      <td><img src="src/screenshot_08.jpg" width="300" alt="Screenshot 8"/></td>
+      <td><img src="src/screenshot_07.png" width="300" alt="Screenshot 7"/></td>
+      <td><img src="src/screenshot_08.png" width="300" alt="Screenshot 8"/></td>
     </tr>
     <tr>
-      <td><img src="src/screenshot_09.jpg" width="300" alt="Screenshot 9"/></td>
-      <td><img src="src/screenshot_10.jpg" width="300" alt="Screenshot 10"/></td>
+      <td><img src="src/screenshot_09.png" width="300" alt="Screenshot 9"/></td>
+      <td><img src="src/screenshot_10.png" width="300" alt="Screenshot 10"/></td>
     </tr>
   </table>
 </div>
