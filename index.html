@@ -1,0 +1,536 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Markd - Ultimate Smart Attendance & Timetable Manager</title>
+    <meta name="description" content="A specialized attendance tracker and schedule manager designed for students.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #3B5BA9;
+            --primary-container: #DBE1FF;
+            --on-primary-container: #00174A;
+            --tertiary: #5E5C7E;
+            --background: #F8F9FF;
+            --surface: #FFFFFF;
+            --on-surface: #191C20;
+            --on-surface-variant: #45474F;
+            --outline: #757780;
+            --radius-lg: 24px;
+            --radius-md: 16px;
+        }
+
+        * {
+            box-sizing: border-box;
+            transition: all 0.2s ease-in-out;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+            line-height: 1.6;
+            color: var(--on-surface);
+            background-color: var(--background);
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            min-height: 100vh;
+        }
+
+        .main-container {
+            max-width: 850px;
+            width: 100%;
+            margin: 20px 20px;
+            background-color: var(--surface);
+            border-radius: var(--radius-lg);
+            box-shadow: 0 10px 40px rgba(59, 91, 169, 0.08);
+            overflow: hidden;
+            border: 1px solid rgba(59, 91, 169, 0.05);
+        }
+
+        header {
+            background-color: var(--primary-container);
+            padding: 40px 40px 36px;
+            text-align: center;
+            position: relative;
+        }
+
+        .logo-container {
+            width: 80px;
+            height: 80px;
+            background-color: var(--surface);
+            border-radius: 20px;
+            margin: 0 auto 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            box-shadow: 0 8px 16px rgba(59, 91, 169, 0.2);
+            overflow: hidden;
+        }
+
+        .logo-container img {
+            width: 120%;
+            height: 120%;
+            object-fit: cover;
+        }
+
+        h1 {
+            color: var(--on-primary-container);
+            margin: 0 0 8px;
+            font-size: 32px;
+            font-weight: 800;
+            letter-spacing: -0.5px;
+            display: block;
+        }
+
+        .subtitle {
+            color: var(--primary);
+            font-size: 16px;
+            font-weight: 600;
+            margin: 0 0 8px;
+        }
+
+        .header-desc {
+            color: var(--on-primary-container);
+            opacity: 0.8;
+            font-size: 14px;
+            margin: 0 0 12px;
+        }
+
+        .play-badge {
+            margin-top: 10px;
+            display: inline-block;
+            transition: transform 0.2s;
+        }
+
+        .play-badge:hover {
+            transform: scale(1.05);
+        }
+
+        .content {
+            padding: 50px 60px;
+        }
+
+        @media (max-width: 600px) {
+            .content {
+                padding: 30px 25px;
+            }
+
+            header {
+                padding: 40px 20px;
+            }
+
+            h2 {
+                font-size: 18px;
+            }
+
+            h1 {
+                font-size: 32px;
+            }
+
+            .screenshots-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .features-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        h2 {
+            color: var(--primary);
+            font-size: 28px;
+            font-weight: 700;
+            margin-top: 50px;
+            margin-bottom: 24px;
+            display: flex;
+            align-items: center;
+        }
+
+        h2::before {
+            content: "";
+            flex-shrink: 0;
+            width: 6px;
+            height: 28px;
+            background-color: var(--primary);
+            margin-right: 16px;
+            border-radius: 3px;
+        }
+
+        h3 {
+            color: var(--on-primary-container);
+            font-size: 20px;
+            font-weight: 700;
+            margin-top: 30px;
+            margin-bottom: 12px;
+        }
+
+        p {
+            font-size: 17px;
+            color: var(--on-surface-variant);
+            margin-bottom: 20px;
+        }
+
+        .highlight-box {
+            background-color: #F0F3FF;
+            padding: 24px;
+            border-radius: var(--radius-md);
+            border-left: 4px solid var(--primary);
+            margin: 30px 0;
+        }
+
+        .highlight-box p {
+            margin: 0;
+            font-weight: 500;
+            color: var(--on-primary-container);
+        }
+
+        /* Features grid */
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 24px;
+            margin-top: 30px;
+        }
+
+        .feature-card {
+            background: #F8F9FF;
+            border: 1px solid rgba(59, 91, 169, 0.1);
+            border-radius: var(--radius-md);
+            padding: 24px;
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(59, 91, 169, 0.1);
+            background: #FFFFFF;
+        }
+
+        .feature-icon {
+            font-size: 28px;
+            margin-bottom: 16px;
+            display: inline-block;
+        }
+
+        .feature-title {
+            color: var(--primary);
+            font-size: 18px;
+            font-weight: 700;
+            margin-bottom: 12px;
+        }
+
+        .feature-text {
+            font-size: 15px;
+            color: var(--on-surface-variant);
+            margin: 0;
+        }
+
+        /* Screenshots gallery */
+        .screenshots-grid {
+            display: grid;
+            grid-template-columns: repeat(2, minmax(auto, 320px));
+            gap: 24px;
+            margin-top: 40px;
+            justify-content: center;
+            justify-items: center;
+        }
+
+        .screenshot-item {
+            width: 100%;
+            max-width: 320px;
+            border-radius: var(--radius-md);
+            overflow: hidden;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease;
+        }
+
+        .screenshot-item:hover {
+            transform: scale(1.03);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
+        }
+
+        .screenshot-item img {
+            width: 100%;
+            height: auto;
+            display: block;
+        }
+
+        ul.tech-list {
+            padding-left: 0;
+            margin-bottom: 24px;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 15px;
+        }
+
+        ul.tech-list li {
+            margin-bottom: 0;
+            padding: 16px 20px;
+            background: var(--background);
+            border-radius: var(--radius-md);
+            position: relative;
+            list-style: none;
+            display: flex;
+            align-items: center;
+            border: 1px solid rgba(59, 91, 169, 0.05);
+        }
+
+        ul.tech-list li::before {
+            content: "🛠️";
+            margin-right: 12px;
+            font-size: 18px;
+            display: inline-block;
+        }
+
+        .tech-list strong {
+            color: var(--primary);
+            margin-right: 8px;
+        }
+
+        a {
+            color: var(--primary);
+            text-decoration: none;
+            font-weight: 600;
+            border-bottom: 1px solid transparent;
+        }
+
+        a:hover {
+            border-bottom: 1px solid var(--primary);
+        }
+
+        footer {
+            padding: 40px;
+            text-align: center;
+            border-top: 1px solid #eee;
+            background-color: #fafafa;
+        }
+
+        .footer-text {
+            color: var(--on-surface-variant);
+            font-size: 15px;
+            font-weight: 500;
+            margin: 0;
+        }
+
+        .contact-card {
+            background: linear-gradient(135deg, var(--primary), var(--tertiary));
+            color: white;
+            padding: 32px;
+            border-radius: var(--radius-md);
+            margin-top: 50px;
+            text-align: center;
+        }
+
+        .contact-card h2 {
+            color: white;
+            justify-content: center;
+            margin-top: 0;
+        }
+
+        .contact-card h2::before {
+            display: none;
+        }
+
+        .contact-card p {
+            color: rgba(255, 255, 255, 0.9);
+            margin-bottom: 24px;
+        }
+
+        .contact-button {
+            display: inline-flex;
+            align-items: center;
+            background-color: white;
+            color: var(--primary);
+            padding: 14px 32px;
+            border-radius: 100px;
+            font-weight: 700;
+            text-decoration: none;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        }
+
+        .contact-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 16px rgba(0, 0, 0, 0.15);
+            border-bottom: none;
+            color: var(--primary);
+        }
+
+        .github-btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            background-color: #24292e;
+            color: white;
+            padding: 12px 24px;
+            border-radius: 100px;
+            font-weight: 600;
+            text-decoration: none;
+            margin-top: 15px;
+            transition: background-color 0.2s;
+        }
+
+        .github-btn:hover {
+            background-color: #1b1e23;
+            border-bottom: none;
+        }
+
+        .github-btn svg {
+            fill: currentColor;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="main-container">
+        <header>
+            <div class="logo-container">
+                <img src="src/logo.png" alt="Markd Logo">
+            </div>
+            <h1>Markd</h1>
+            <div class="subtitle">Ultimate Smart Attendance &amp; Timetable Manager</div>
+            <a href="https://play.google.com/store/apps/details?id=org.nidusapps.markd" class="play-badge"
+                target="_blank">
+                <img alt="Get it on Google Play"
+                    src="https://play.google.com/intl/en_us/badges/static/images/badges/en_badge_web_generic.png"
+                    height="60" />
+            </a>
+        </header>
+
+        <div class="content">
+            <div class="highlight-box">
+                <p>📖 Built with privacy and efficiency in mind, Markd eliminates the need for manual calculations
+                    helping you stay above your required attendance criteria no matter how unpredictable your semester
+                    gets.</p>
+            </div>
+
+            <h2>✨ Key Features</h2>
+            <div class="features-grid">
+                <div class="feature-card">
+                    <span class="feature-icon">🤖</span>
+                    <div class="feature-title">AI Timetable Scanner</div>
+                    <p class="feature-text">Instantly read and digitize your timetable from photos or PDFs.
+                        Automatically extracts subjects, class timings, teachers and assigned classrooms in seconds.</p>
+                </div>
+
+                <div class="feature-card">
+                    <span class="feature-icon">📊</span>
+                    <div class="feature-title">Comprehensive Tracking</div>
+                    <p class="feature-text">Mark exact status for any lecture: Present, Absent, Holiday, or use On Duty
+                        for official events to protect your overall attendance.</p>
+                </div>
+
+                <div class="feature-card">
+                    <span class="feature-icon">➕</span>
+                    <div class="feature-title">Extra Class Support</div>
+                    <p class="feature-text">Semester schedules rarely stay static. Easily add an Extra Class for makeup
+                        lectures to ensure your log perfectly reflects your hours.</p>
+                </div>
+
+                <div class="feature-card">
+                    <span class="feature-icon">🎯</span>
+                    <div class="feature-title">"Safe to Bunk" Predictor</div>
+                    <p class="feature-text">Set a custom target, and Markd calculates exactly how many upcoming classes
+                        you can safely miss without dropping below your threshold.</p>
+                </div>
+
+                <div class="feature-card">
+                    <span class="feature-icon">📅</span>
+                    <div class="feature-title">Interactive Calendar</div>
+                    <p class="feature-text">The dynamic calendar view clearly highlights days with scheduled classes and
+                        provides a detailed breakdown of your daily timetable.</p>
+                </div>
+
+                <div class="feature-card">
+                    <span class="feature-icon">📈</span>
+                    <div class="feature-title">Detailed Analytics</div>
+                    <p class="feature-text">Visual charts detail overall attendance, subject breakdowns, and weekly
+                        trends to help focus on subjects that require more attention.</p>
+                </div>
+
+                <div class="feature-card">
+                    <span class="feature-icon">🔔</span>
+                    <div class="feature-title">Proactive Alerts</div>
+                    <p class="feature-text">Stop relying on memory. Get smart notifications right before each scheduled
+                        class begins, prompting you to mark your status.</p>
+                </div>
+
+                <div class="feature-card">
+                    <span class="feature-icon">🔒</span>
+                    <div class="feature-title">100% Private Storage</div>
+                    <p class="feature-text">No accounts, no logins, no cloud syncing. All your academic data is securely
+                        stored entirely locally on your device.</p>
+                </div>
+
+                <div class="feature-card">
+                    <span class="feature-icon">💾</span>
+                    <div class="feature-title">Export & Backup</div>
+                    <p class="feature-text">Export complete history to Excel or PDF format. Easily create local backup
+                        files to seamlessly transfer between devices.</p>
+                </div>
+
+                <div class="feature-card">
+                    <span class="feature-icon">🎨</span>
+                    <div class="feature-title">Modern Design</div>
+                    <p class="feature-text">Clean, intuitive interface fully supporting both light and dark modes with
+                        customizable time formatting options.</p>
+                </div>
+            </div>
+
+            <h2>📸 Screenshots</h2>
+            <div class="screenshots-grid">
+                <div class="screenshot-item"><img src="src/screenshot_01.png" alt="Markd Screenshot 1" loading="lazy">
+                </div>
+                <div class="screenshot-item"><img src="src/screenshot_02.png" alt="Markd Screenshot 2" loading="lazy">
+                </div>
+                <div class="screenshot-item"><img src="src/screenshot_03.png" alt="Markd Screenshot 3" loading="lazy">
+                </div>
+                <div class="screenshot-item"><img src="src/screenshot_04.png" alt="Markd Screenshot 4" loading="lazy">
+                </div>
+                <div class="screenshot-item"><img src="src/screenshot_05.png" alt="Markd Screenshot 5" loading="lazy">
+                </div>
+                <div class="screenshot-item"><img src="src/screenshot_06.png" alt="Markd Screenshot 6" loading="lazy">
+                </div>
+                <div class="screenshot-item"><img src="src/screenshot_07.png" alt="Markd Screenshot 7" loading="lazy">
+                </div>
+                <div class="screenshot-item"><img src="src/screenshot_08.png" alt="Markd Screenshot 8" loading="lazy">
+                </div>
+                <div class="screenshot-item"><img src="src/screenshot_09.png" alt="Markd Screenshot 9" loading="lazy">
+                </div>
+                <div class="screenshot-item"><img src="src/screenshot_10.png" alt="Markd Screenshot 10" loading="lazy">
+                </div>
+            </div>
+
+            <div class="contact-card">
+                <h2>Ready to manage your academic life?</h2>
+                <p>Download Markd on Google Play today and never worry about attendance again.</p>
+                <a href="https://play.google.com/store/apps/details?id=org.nidusapps.markd" class="contact-button"
+                    target="_blank">Download Markd</a>
+                <br>
+                <a href="https://github.com/BetterCallShiv/Markd" class="github-btn" target="_blank">
+                    <svg height="20" width="20" viewBox="0 0 16 16" version="1.1">
+                        <path fill-rule="evenodd"
+                            d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z">
+                        </path>
+                    </svg>
+                    View on GitHub
+                </a>
+            </div>
+            <p style="text-align: center; margin-top: 30px;">
+                <a href="https://bettercallshiv.github.io/Markd/privacy-policy.html">Privacy Policy</a>
+            </p>
+        </div>
+        <footer>
+            <p class="footer-text">Built by <a href="https://github.com/BetterCallShiv" target="_blank">Shivam Raj</a>
+                &bull; &copy; 2026 Nidus Apps.</p>
+        </footer>
+    </div>
+</body>
+
+</html>
