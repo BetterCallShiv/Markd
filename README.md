@@ -67,6 +67,10 @@
       <td><img src="src/screenshot_09.png" width="300" alt="Screenshot 9"/></td>
       <td><img src="src/screenshot_10.png" width="300" alt="Screenshot 10"/></td>
     </tr>
+    <tr>
+      <td><img src="src/screenshot_11.png" width="300" alt="Screenshot 11"/></td>
+      <td><img src="src/screenshot_12.png" width="300" alt="Screenshot 12"/></td>
+    </tr>
   </table>
 </div>
 
