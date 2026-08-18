@@ -315,9 +315,7 @@
             color: var(--on-primary-container);
             text-align: center;
             transition: transform 0.3s, box-shadow 0.3s;
-            white-space: nowrap;
-            overflow: hidden;
-            text-overflow: ellipsis;
+
         }
 
         .room-card:hover {
@@ -531,7 +529,7 @@
                         if (n.startsWith("SVH")) return "SVH Block";
                         if (n.startsWith("LAW")) return "Law Block";
                         if (n.startsWith("FOUNDATION")) return "Foundation Block";
-                        if (n.includes("EB ") || n.startsWith("EB")) return "EB Block";
+                        if (n.includes("EB ") || n.startsWith("EB")) return "Engineering Block";
                         return "Other Labs & Rooms";
                     }
 
@@ -544,7 +542,7 @@
                     });
                     
                     // Order of rendering: Foundation, EB, Law, SVH, Others
-                    const blockOrder = ["Foundation Block", "EB Block", "Law Block", "SVH Block", "Other Labs & Rooms"];
+                    const blockOrder = ["Foundation Block", "Engineering Block", "Law Block", "SVH Block", "Other Labs & Rooms"];
                     
                     blockOrder.forEach(blockName => {
                         if (blocks[blockName] && blocks[blockName].length > 0) {
@@ -578,4 +576,6 @@
 </body>
 
 </html>
+
+
 
