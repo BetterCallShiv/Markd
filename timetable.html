@@ -1,0 +1,298 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Timetable Config Generator - Markd</title>
+    <meta name="description" content="Generate timetable configs for the Markd attendance app. Designed for IILM University Greater Noida.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #3B5BA9;
+            --primary-container: #DBE1FF;
+            --on-primary-container: #00174A;
+            --tertiary: #5E5C7E;
+            --background: #F8F9FF;
+            --surface: #FFFFFF;
+            --on-surface: #191C20;
+            --on-surface-variant: #45474F;
+            --outline: #757780;
+            --radius-lg: 24px;
+            --radius-md: 16px;
+        }
+        :root[data-theme="dark"] {
+            --primary: #5A7DCF;
+            --primary-container: #1C2D5A;
+            --on-primary-container: #DBE1FF;
+            --tertiary: #A5A3C7;
+            --background: #121418;
+            --surface: #1E2024;
+            --on-surface: #E2E2E6;
+            --on-surface-variant: #C4C6D0;
+            --outline: #8E9099;
+        }
+        :root[data-theme="dark"] .lesson-card {
+            border-top-color: rgba(255, 255, 255, 0.1);
+            border-right-color: rgba(255, 255, 255, 0.1);
+            border-bottom-color: rgba(255, 255, 255, 0.1);
+        }
+        @media (prefers-color-scheme: dark) {
+            :root:not([data-theme="light"]) {
+                --primary: #5A7DCF; --primary-container: #1C2D5A; --on-primary-container: #DBE1FF;
+                --tertiary: #A5A3C7; --background: #121418; --surface: #1E2024;
+                --on-surface: #E2E2E6; --on-surface-variant: #C4C6D0; --outline: #8E9099;
+            }
+            :root:not([data-theme="light"]) .lesson-card {
+                border-top-color: rgba(255, 255, 255, 0.1);
+                border-right-color: rgba(255, 255, 255, 0.1);
+                border-bottom-color: rgba(255, 255, 255, 0.1);
+            }
+        }
+        * { box-sizing: border-box; margin: 0; padding: 0; transition: all 0.2s ease-in-out; }
+        a { color: var(--primary); text-decoration: none; font-weight: 600; border-bottom: 1px solid transparent; }
+        a:hover { border-bottom: 1px solid var(--primary); }
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+            line-height: 1.6; color: var(--on-surface); background-color: var(--background);
+            margin: 0; padding: 0; display: flex; flex-direction: column; align-items: center; min-height: 100vh;
+        }
+        .main-container {
+            max-width: 850px; width: 100%; margin: 20px 20px; background-color: var(--surface);
+            border-radius: var(--radius-lg); box-shadow: 0 10px 40px rgba(59, 91, 169, 0.08);
+            overflow: hidden; border: 1px solid rgba(59, 91, 169, 0.05);
+        }
+        header { background-color: var(--primary-container); padding: 40px 40px 36px; text-align: center; position: relative; }
+        .logo-container {
+            width: 80px; height: 80px; background-color: var(--surface); border-radius: 20px;
+            margin: 0 auto 20px; display: flex; justify-content: center; align-items: center;
+            box-shadow: 0 8px 16px rgba(59, 91, 169, 0.2); overflow: hidden;
+        }
+        .logo-container img { width: 120%; height: 120%; object-fit: cover; }
+        h1 { color: var(--on-primary-container); margin: 0 0 8px; font-size: 32px; font-weight: 800; letter-spacing: -0.5px; }
+        .subtitle { color: var(--primary); font-size: 16px; font-weight: 600; margin: 0 0 8px; }
+        .header-desc { color: var(--on-primary-container); opacity: 0.8; font-size: 14px; margin: 0 0 12px; }
+        .play-badge { margin-top: 10px; display: inline-block; transition: transform 0.2s; }
+        .play-badge:hover { transform: scale(1.05); }
+        .content { padding: 50px 60px; }
+        .form-group { margin-bottom: 1.5rem; }
+        .form-group label { display: block; margin-bottom: 0.5rem; font-weight: 600; font-size: 0.95rem; color: var(--on-primary-container); }
+        input[type="text"], select {
+            width: 100%; padding: 1rem; border-radius: var(--radius-md); border: 1px solid var(--outline);
+            background: var(--surface); color: var(--on-surface); font-size: 1rem; font-family: 'Inter', sans-serif; outline: none;
+        }
+        input[type="text"]:focus, select:focus { border-color: var(--primary); box-shadow: 0 0 0 4px rgba(59, 91, 169, 0.1); }
+        button {
+            width: 100%; padding: 1rem; border-radius: var(--radius-md); border: none; background: var(--primary);
+            color: white; font-size: 1rem; font-weight: 600; cursor: pointer;
+            box-shadow: 0 4px 12px rgba(59, 91, 169, 0.2); font-family: 'Inter', sans-serif;
+        }
+        button:hover { transform: translateY(-2px); box-shadow: 0 6px 16px rgba(59, 91, 169, 0.3); }
+        button:disabled { opacity: 0.5; cursor: not-allowed; transform: none; }
+        .loader { display: none; width: 24px; height: 24px; border: 3px solid rgba(255,255,255,0.3); border-radius: 50%; border-top-color: #fff; animation: spin 1s ease-in-out infinite; margin: 0 auto; }
+        @keyframes spin { to { transform: rotate(360deg); } }
+        #promptsArea { display: none; animation: fadeIn 0.4s ease forwards; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+        #timetableArea { display: none; width: 100%; max-width: 850px; margin-top: 2rem; animation: fadeIn 0.5s ease forwards; }
+        .day-group { margin-bottom: 2.5rem; }
+        .day-title { color: var(--primary); font-size: 24px; font-weight: 700; margin-bottom: 1.5rem; display: flex; align-items: center; }
+        .day-title::before { content: ""; flex-shrink: 0; width: 6px; height: 24px; background-color: var(--primary); margin-right: 12px; border-radius: 3px; }
+        .lesson-card {
+            background: var(--surface); border: 1px solid rgba(59, 91, 169, 0.1);
+            border-left: 5px solid var(--card-color, var(--primary)); border-radius: var(--radius-md);
+            padding: 1.25rem 1.5rem; margin-bottom: 1rem; display: grid; grid-template-columns: 1fr auto;
+            gap: 1rem; transition: transform 0.3s, box-shadow 0.3s; box-shadow: 0 4px 15px rgba(0, 0, 0, 0.03);
+        }
+        .lesson-card:hover { transform: translateY(-3px); box-shadow: 0 10px 25px rgba(59, 91, 169, 0.08); }
+        .lesson-main h3 { color: var(--on-primary-container); font-size: 1.15rem; font-weight: 700; margin-bottom: 0.35rem; }
+        .lesson-meta { font-size: 0.95rem; color: var(--on-surface-variant); }
+        .lesson-time { text-align: right; font-weight: 700; color: var(--primary); display: flex; flex-direction: column; justify-content: center; font-size: 1.05rem; }
+        .lesson-time span.room { font-size: 0.9rem; color: var(--on-surface-variant); font-weight: 600; margin-top: 0.25rem; }
+        .error { color: #D32F2F; background: rgba(211,47,47,0.1); padding: 1rem; border-radius: var(--radius-md); margin-top: 1rem; display: none; border: 1px solid rgba(211, 47, 47, 0.2); font-weight: 500; }
+        .highlight-box { background-color: var(--background); padding: 24px; border-radius: var(--radius-md); border-left: 4px solid var(--primary); margin: 0 0 30px; }
+        .highlight-box p { margin: 0; font-weight: 500; color: var(--on-primary-container); font-size: 15px; }
+        #timetableArea textarea { background: var(--background) !important; color: var(--on-surface) !important; border: 1px solid var(--outline) !important; }
+        footer { padding: 40px; text-align: center; border-top: 1px solid var(--outline); background-color: var(--background); }
+        .footer-links { margin-bottom: 20px; }
+        .footer-links a { font-weight: 500; }
+        .footer-text { color: var(--on-surface-variant); font-size: 15px; font-weight: 500; margin: 0; }
+        @media (max-width: 600px) {
+            .content { padding: 30px 25px; }
+            header { padding: 40px 20px; }
+            .lesson-card { grid-template-columns: 1fr; }
+            .lesson-time { text-align: left; flex-direction: row; gap: 1rem; align-items: center; }
+            h1 { font-size: 28px; }
+        }
+    </style>
+</head>
+<body>
+    <div class="main-container">
+        <header>
+            <button id="themeToggle" onclick="toggleTheme()" aria-label="Toggle theme" style="position: absolute; top: 20px; right: 20px; width: 40px; height: 40px; border-radius: 50%; padding: 0; display: flex; align-items: center; justify-content: center; background: transparent; border: 1px solid var(--outline); color: var(--on-surface); box-shadow: none;">
+                <svg id="themeIcon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path></svg>
+            </button>
+            <div class="logo-container"><img src="src/logo.png" alt="Markd Logo"></div>
+            <h1>Markd</h1>
+            <div class="subtitle">Timetable Config Generator</div>
+            <div class="header-desc">For IILM University, Greater Noida</div>
+            <a href="https://play.google.com/store/apps/details?id=org.nidusapps.markd" class="play-badge" target="_blank">
+                <img alt="Get it on Google Play" src="https://play.google.com/intl/en_us/badges/static/images/badges/en_badge_web_generic.png" height="60" />
+            </a>
+        </header>
+        <div class="content">
+            <div class="form-group">
+                <label for="className">Class Name</label>
+                <select id="className"><option value="">Loading classes...</option></select>
+            </div>
+            <button id="fetchBtn" onclick="fetchDivisions()">
+                <span class="btn-text">Find Class</span>
+                <div class="loader" id="fetchLoader"></div>
+            </button>
+            <div class="error" id="errorMsg"></div>
+            <div id="promptsArea">
+                <hr style="border: 0; border-top: 1px solid rgba(59, 91, 169, 0.1); margin: 2rem 0;">
+                <div id="dynamicFields"></div>
+                <button id="generateBtn" onclick="generateTimetable()" style="margin-top: 1rem;">
+                    <span class="btn-text">Generate Timetable</span>
+                    <div class="loader" id="generateLoader"></div>
+                </button>
+            </div>
+            <div id="timetableArea"></div>
+        </div>
+        <footer>
+            <p class="footer-links">
+                <a href="index.html">Home</a> &nbsp;&nbsp;|&nbsp;&nbsp; <a href="timetable.html">Timetable Generator</a> &nbsp;&nbsp;|&nbsp;&nbsp; <a href="vacant.html">Vacant Class Rooms</a>
+            </p>
+            <p class="footer-text">Built by <a href="https://github.com/BetterCallShiv" target="_blank">Shivam Raj</a> &bull; &copy; 2026 Nidus Apps.</p>
+        </footer>
+    </div>
+    <script>
+        const API_BASE = "https://markdapi.bettercallshiv.workers.dev";
+        let currentPrompts = [];
+        let currentClassId = null;
+        let currentClassName = "";
+
+        function toggleTheme() {
+            const root = document.documentElement;
+            const currentTheme = root.getAttribute('data-theme');
+            const newTheme = currentTheme === 'dark' ? 'light' : (currentTheme === 'light' ? 'dark' : (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'light' : 'dark'));
+            root.setAttribute('data-theme', newTheme);
+            localStorage.setItem('theme', newTheme);
+            updateThemeIcon(newTheme);
+        }
+
+        function updateThemeIcon(theme) {
+            const isDark = theme === 'dark' || (theme !== 'light' && window.matchMedia('(prefers-color-scheme: dark)').matches);
+            const icon = document.getElementById('themeIcon');
+            if (icon) {
+                if (isDark) {
+                    icon.innerHTML = '<circle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>';
+                } else {
+                    icon.innerHTML = '<path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>';
+                }
+            }
+        }
+        const savedTheme = localStorage.getItem('theme');
+        if (savedTheme) document.documentElement.setAttribute('data-theme', savedTheme);
+        document.addEventListener("DOMContentLoaded", async () => {
+            updateThemeIcon(savedTheme);
+            try {
+                const res = await fetch(API_BASE + '/api/classes');
+                const data = await res.json();
+                const select = document.getElementById('className');
+                if (data.classes && data.classes.length > 0) {
+                    select.innerHTML = '<option value="">Select your class...</option>';
+                    data.classes.forEach(c => { const opt = document.createElement('option'); opt.value = c.name; opt.textContent = c.name; select.appendChild(opt); });
+                } else { throw new Error("No classes returned"); }
+            } catch (e) { document.getElementById('className').innerHTML = '<option value="">Failed to load classes</option>'; }
+        });
+
+        async function fetchDivisions() {
+            const classInput = document.getElementById('className').value.trim();
+            if (!classInput) return;
+            setLoading('fetchBtn', 'fetchLoader', true); hideError();
+            document.getElementById('promptsArea').style.display = 'none';
+            document.getElementById('timetableArea').style.display = 'none';
+            try {
+                const res = await fetch(API_BASE + '/api/divisions?class=' + encodeURIComponent(classInput));
+                const data = await res.json();
+                if (!res.ok) throw new Error(data.error || "Failed to fetch class");
+                currentClassId = data.classId; currentClassName = classInput; currentPrompts = data.prompts;
+                renderPrompts(currentPrompts);
+            } catch (err) { showError(err.message); } finally { setLoading('fetchBtn', 'fetchLoader', false, "Find Class"); }
+        }
+
+        function renderPrompts(prompts) {
+            const area = document.getElementById('promptsArea');
+            const fields = document.getElementById('dynamicFields');
+            fields.innerHTML = '';
+            if (prompts.length === 0) { generateTimetable(); return; }
+            prompts.forEach(p => {
+                const div = document.createElement('div'); div.className = 'form-group';
+                let html = '<label>' + p.label + '</label><select id="div_' + p.division_number + '">';
+                p.options.forEach(opt => { html += '<option value="' + opt.id + '">' + opt.name + '</option>'; });
+                html += '</select>'; div.innerHTML = html; fields.appendChild(div);
+            });
+            area.style.display = 'block';
+        }
+
+        async function generateTimetable() {
+            setLoading('generateBtn', 'generateLoader', true);
+            if (currentPrompts.length === 0) setLoading('fetchBtn', 'fetchLoader', true);
+            hideError();
+            const selectedGroups = {};
+            currentPrompts.forEach(p => { const select = document.getElementById('div_' + p.division_number); if (select) selectedGroups[p.division_number] = select.value; });
+            try {
+                const res = await fetch(API_BASE + '/api/timetable', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ className: currentClassName, selectedGroups }) });
+                const data = await res.json();
+                if (!res.ok) throw new Error(data.error || "Failed to generate timetable");
+                renderTimetable(data.timetable);
+            } catch (err) { showError(err.message); } finally {
+                setLoading('generateBtn', 'generateLoader', false, "Generate Timetable");
+                if (currentPrompts.length === 0) setLoading('fetchBtn', 'fetchLoader', false, "Find Class");
+            }
+        }
+
+        function renderTimetable(entries) {
+            const area = document.getElementById('timetableArea'); area.innerHTML = '';
+            if (entries.length === 0) { area.innerHTML = '<div style="text-align:center; color:var(--on-surface-variant);">No lessons found for these selections.</div>'; area.style.display = 'block'; return; }
+            let rawText = "", currentDay = null;
+            entries.forEach(e => { if (currentDay && e.day !== currentDay) rawText += "\n\n"; currentDay = e.day; rawText += e.subject + ' | ' + e.day + ' | ' + e.start + ' | ' + e.end + ' | ' + e.teacher + ' | ' + e.room + ' | ' + e.color + '\n'; });
+            const configBox = document.createElement('div'); configBox.style.marginBottom = '2rem';
+            var safeText = rawText.replace(/&/g, '&amp;').replace(/</g, '&lt;');
+            configBox.innerHTML = '<div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:1rem;"><h3 style="font-size:1.1rem; font-weight:700; color:var(--on-primary-container);">Raw Config</h3><button onclick="navigator.clipboard.writeText(this.nextElementSibling.value); this.innerText=\'Copied!\'; setTimeout(function(){this.innerText=\'Copy Config\'}.bind(this), 2000);" style="width:auto; padding:0.5rem 1rem; font-size:0.9rem;">Copy Config</button><textarea style="display:none;">' + safeText + '</textarea></div><textarea readonly style="width:100%; height:200px; padding:1rem; border-radius:12px; background:var(--background); color:var(--on-surface); border:1px solid var(--outline); font-family:monospace; resize:vertical; outline:none;">' + safeText + '</textarea>';
+            area.appendChild(configBox);
+            const byDay = {}; entries.forEach(e => { if (!byDay[e.day]) byDay[e.day] = []; byDay[e.day].push(e); });
+            for (const day of Object.keys(byDay)) {
+                const dayDiv = document.createElement('div'); dayDiv.className = 'day-group';
+                dayDiv.innerHTML = '<div class="day-title">' + day + '</div>';
+                byDay[day].forEach(e => {
+                    const card = document.createElement('div'); card.className = 'lesson-card';
+                    const baseColor = e.color || '#3B5BA9';
+                    card.style.setProperty('--card-color', baseColor); card.style.borderLeftColor = baseColor;
+                    card.style.background = 'linear-gradient(to right, ' + baseColor + '1A, var(--surface))';
+                    card.innerHTML = '<div class="lesson-main"><h3>' + e.subject + '</h3><div class="lesson-meta"><span>' + e.teacher + '</span></div></div><div class="lesson-time">' + e.start + ' - ' + e.end + '<span class="room">' + e.room + '</span></div>';
+                    dayDiv.appendChild(card);
+                });
+                area.appendChild(dayDiv);
+            }
+            area.style.display = 'block';
+            setTimeout(() => { area.scrollIntoView({ behavior: 'smooth', block: 'start' }); }, 100);
+        }
+
+        function setLoading(btnId, loaderId, isLoading, text) {
+            const btn = document.getElementById(btnId); const loader = document.getElementById(loaderId); const textSpan = btn.querySelector('.btn-text');
+            if (isLoading) { btn.disabled = true; textSpan.style.display = 'none'; loader.style.display = 'block'; }
+            else { btn.disabled = false; textSpan.style.display = 'block'; if (text) textSpan.innerText = text; loader.style.display = 'none'; }
+        }
+
+        function showError(msg) { const errDiv = document.getElementById('errorMsg'); errDiv.innerText = msg; errDiv.style.display = 'block'; }
+        
+        function hideError() { document.getElementById('errorMsg').style.display = 'none'; }
+    </script>
+</body>
+</html>
+
+
+

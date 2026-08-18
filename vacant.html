@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vacant Class Rooms - Markd</title>
+    <meta name="description" content="Find vacant classrooms at IILM University Greater Noida. Select a day and time slot to discover available rooms.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #3B5BA9;
+            --primary-container: #DBE1FF;
+            --on-primary-container: #00174A;
+            --background: #F8F9FF;
+            --surface: #FFFFFF;
+            --on-surface: #191C20;
+            --on-surface-variant: #45474F;
+            --outline: #757780;
+            --radius-lg: 24px;
+            --radius-md: 16px;
+        }
+        :root[data-theme="dark"] {
+            --primary: #5A7DCF;
+            --primary-container: #1C2D5A;
+            --on-primary-container: #DBE1FF;
+            --background: #121418;
+            --surface: #1E2024;
+            --on-surface: #E2E2E6;
+            --on-surface-variant: #C4C6D0;
+            --outline: #8E9099;
+        }
+        :root[data-theme="dark"] .room-card {
+            border-top-color: rgba(255, 255, 255, 0.1);
+            border-right-color: rgba(255, 255, 255, 0.1);
+            border-bottom-color: rgba(255, 255, 255, 0.1);
+        }
+        @media (prefers-color-scheme: dark) {
+            :root:not([data-theme="light"]) {
+                --primary: #5A7DCF; --primary-container: #1C2D5A; --on-primary-container: #DBE1FF;
+                --background: #121418; --surface: #1E2024; --on-surface: #E2E2E6;
+                --on-surface-variant: #C4C6D0; --outline: #8E9099;
+            }
+            :root:not([data-theme="light"]) .room-card {
+                border-top-color: rgba(255, 255, 255, 0.1);
+                border-right-color: rgba(255, 255, 255, 0.1);
+                border-bottom-color: rgba(255, 255, 255, 0.1);
+            }
+        }
+        * { box-sizing: border-box; margin: 0; padding: 0; transition: all 0.2s ease-in-out; }
+        a { color: var(--primary); text-decoration: none; font-weight: 600; border-bottom: 1px solid transparent; }
+        a:hover { border-bottom: 1px solid var(--primary); }
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+            line-height: 1.6; color: var(--on-surface); background-color: var(--background);
+            margin: 0; padding: 0; display: flex; flex-direction: column; align-items: center; min-height: 100vh;
+        }
+        .main-container {
+            max-width: 850px; width: 100%; margin: 20px 20px; background-color: var(--surface);
+            border-radius: var(--radius-lg); box-shadow: 0 10px 40px rgba(59, 91, 169, 0.08);
+            overflow: hidden; border: 1px solid rgba(59, 91, 169, 0.05);
+        }
+        header { background-color: var(--primary-container); padding: 40px 40px 36px; text-align: center; position: relative; }
+        .logo-container {
+            width: 80px; height: 80px; background-color: var(--surface); border-radius: 20px;
+            margin: 0 auto 20px; display: flex; justify-content: center; align-items: center;
+            box-shadow: 0 8px 16px rgba(59, 91, 169, 0.2); overflow: hidden;
+        }
+        .logo-container img { width: 120%; height: 120%; object-fit: cover; }
+        h1 { color: var(--on-primary-container); margin: 0 0 8px; font-size: 32px; font-weight: 800; letter-spacing: -0.5px; }
+        .subtitle { color: var(--primary); font-size: 16px; font-weight: 600; margin: 0 0 8px; }
+        .header-desc { color: var(--on-primary-container); opacity: 0.8; font-size: 14px; margin: 0 0 12px; }
+        .content { padding: 50px 60px; }
+        .highlight-box { background-color: var(--background); padding: 24px; border-radius: var(--radius-md); border-left: 4px solid var(--primary); margin: 0 0 30px; }
+        .highlight-box p { margin: 0; font-weight: 500; color: var(--on-primary-container); font-size: 15px; }
+        .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; margin-bottom: 1.5rem; }
+        .form-group { margin-bottom: 1.5rem; }
+        .form-group label { display: block; margin-bottom: 0.5rem; font-weight: 600; color: var(--on-primary-container); font-size: 0.95rem; }
+        select {
+            width: 100%; padding: 1rem; border-radius: var(--radius-md); border: 1px solid var(--outline);
+            background: var(--surface); color: var(--on-surface); font-size: 1rem; font-family: 'Inter', sans-serif; outline: none;
+        }
+        select:focus { border-color: var(--primary); box-shadow: 0 0 0 4px rgba(59, 91, 169, 0.1); }
+        button {
+            width: 100%; padding: 1rem; border-radius: var(--radius-md); border: none; background: var(--primary);
+            color: white; font-size: 1rem; font-weight: 600; cursor: pointer;
+            box-shadow: 0 4px 12px rgba(59, 91, 169, 0.2); font-family: 'Inter', sans-serif;
+        }
+        button:hover { transform: translateY(-2px); box-shadow: 0 6px 16px rgba(59, 91, 169, 0.3); }
+        button:disabled { opacity: 0.5; cursor: not-allowed; transform: none; }
+        .loader { display: none; width: 24px; height: 24px; border: 3px solid rgba(255,255,255,0.3); border-radius: 50%; border-top-color: #fff; animation: spin 1s ease-in-out infinite; margin: 0 auto; }
+        @keyframes spin { to { transform: rotate(360deg); } }
+        .error { color: #D32F2F; background: rgba(211,47,47,0.1); padding: 1rem; border-radius: var(--radius-md); margin-top: 1rem; display: none; border: 1px solid rgba(211, 47, 47, 0.2); font-weight: 500; }
+        footer { padding: 40px; text-align: center; border-top: 1px solid var(--outline); background-color: var(--background); }
+        .footer-links { margin-bottom: 20px; }
+        .footer-links a { font-weight: 500; }
+        .footer-text { color: var(--on-surface-variant); font-size: 15px; font-weight: 500; margin: 0; }
+        .rooms-grid { display: none; grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)); gap: 1rem; margin-top: 2rem; }
+        .room-card {
+            background: var(--surface); border: 1px solid rgba(59, 91, 169, 0.1);
+            border-left: 5px solid var(--primary); border-radius: var(--radius-md);
+            padding: 1.25rem; font-weight: 600; color: var(--on-primary-container); text-align: center;
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+        .room-card:hover { transform: translateY(-3px); box-shadow: 0 10px 25px rgba(59, 91, 169, 0.08); }
+        #emptyState { display: none; margin-top: 2rem; text-align: center; color: var(--on-surface-variant); font-weight: 500; }
+        @media (max-width: 600px) {
+            .content { padding: 30px 25px; }
+            header { padding: 40px 20px; }
+            .form-row { grid-template-columns: 1fr; gap: 0; }
+            h1 { font-size: 28px; }
+        }
+    </style>
+</head>
+<body>
+    <div class="main-container">
+        <header>
+            <button id="themeToggle" onclick="toggleTheme()" aria-label="Toggle theme" style="position: absolute; top: 20px; right: 20px; width: 40px; height: 40px; border-radius: 50%; padding: 0; display: flex; align-items: center; justify-content: center; background: transparent; border: 1px solid var(--outline); color: var(--on-surface); box-shadow: none;">
+                <svg id="themeIcon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path></svg>
+            </button>
+            <div class="logo-container"><img src="src/logo.png" alt="Markd Logo"></div>
+            <h1>Markd</h1>
+            <div class="subtitle">Vacant Class Rooms</div>
+            <div class="header-desc">For IILM University, Greater Noida</div>
+        </header>
+        <div class="content">
+            <div class="form-group">
+                <label for="dayOfWeek">Day of Week</label>
+                <select id="dayOfWeek">
+                    <option value="Monday">Monday</option>
+                    <option value="Tuesday">Tuesday</option>
+                    <option value="Wednesday">Wednesday</option>
+                    <option value="Thursday">Thursday</option>
+                    <option value="Friday">Friday</option>
+                    <option value="Saturday">Saturday</option>
+                </select>
+            </div>
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="startTime">Start Time</label>
+                    <select id="startTime" onchange="updateEndTimeOptions()">
+                        <option value="">Loading periods...</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="endTime">End Time</label>
+                    <select id="endTime">
+                        <option value="">Loading periods...</option>
+                    </select>
+                </div>
+            </div>
+            <button id="findBtn" onclick="findRooms()">
+                <span class="btn-text">Find Classrooms</span>
+                <div class="loader" id="findLoader"></div>
+            </button>
+            <div class="error" id="errorMsg"></div>
+            <div id="roomsGrid" class="rooms-grid"></div>
+            <div id="emptyState">No vacant rooms found for this time slot.</div>
+        </div>
+        <footer>
+            <p class="footer-links">
+                <a href="index.html">Home</a> &nbsp;&nbsp;|&nbsp;&nbsp; <a href="timetable.html">Timetable Generator</a> &nbsp;&nbsp;|&nbsp;&nbsp; <a href="vacant.html">Vacant Class Rooms</a>
+            </p>
+            <p class="footer-text">Built by <a href="https://github.com/BetterCallShiv" target="_blank">Shivam Raj</a> &bull; &copy; 2026 Nidus Apps.</p>
+        </footer>
+    </div>
+    <script>
+        const API_BASE = "https://markdapi.bettercallshiv.workers.dev";
+        function toggleTheme() {
+            const root = document.documentElement;
+            const currentTheme = root.getAttribute('data-theme');
+            const newTheme = currentTheme === 'dark' ? 'light' : (currentTheme === 'light' ? 'dark' : (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'light' : 'dark'));
+            root.setAttribute('data-theme', newTheme);
+            localStorage.setItem('theme', newTheme);
+            updateThemeIcon(newTheme);
+        }
+        function updateThemeIcon(theme) {
+            const isDark = theme === 'dark' || (theme !== 'light' && window.matchMedia('(prefers-color-scheme: dark)').matches);
+            const icon = document.getElementById('themeIcon');
+            if (icon) {
+                if (isDark) {
+                    icon.innerHTML = '<circle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>';
+                } else {
+                    icon.innerHTML = '<path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>';
+                }
+            }
+        }
+        const savedTheme = localStorage.getItem('theme');
+        if (savedTheme) document.documentElement.setAttribute('data-theme', savedTheme);
+
+        let globalPeriods = [];
+        document.addEventListener("DOMContentLoaded", async () => {
+            updateThemeIcon(savedTheme);
+            try {
+                const res = await fetch(API_BASE + '/api/periods');
+                const data = await res.json();
+                globalPeriods = data.periods || [];
+                const startSelect = document.getElementById('startTime');
+                startSelect.innerHTML = '';
+                if (globalPeriods.length > 0) {
+                    globalPeriods.forEach((p) => {
+                        const option1 = document.createElement('option');
+                        option1.value = p.start;
+                        option1.innerText = p.start + " (" + p.name + ")";
+                        startSelect.appendChild(option1);
+                    });
+                    updateEndTimeOptions();
+                } else {
+                    startSelect.innerHTML = '<option value="">No periods found</option>';
+                    document.getElementById('endTime').innerHTML = '<option value="">No periods found</option>';
+                }
+            } catch (err) {
+                document.getElementById('errorMsg').innerText = "Failed to load periods. Please refresh.";
+                document.getElementById('errorMsg').style.display = 'block';
+            }
+        });
+
+        function updateEndTimeOptions() {
+            const startSelect = document.getElementById('startTime');
+            const endSelect = document.getElementById('endTime');
+            const startTime = startSelect.value;
+            endSelect.innerHTML = '';
+            let foundStart = false;
+            globalPeriods.forEach(p => {
+                if (p.start === startTime) foundStart = true;
+                if (foundStart) {
+                    const option2 = document.createElement('option');
+                    option2.value = p.end;
+                    option2.innerText = p.end + " (" + p.name + ")";
+                    endSelect.appendChild(option2);
+                }
+            });
+        }
+
+        async function findRooms() {
+            const dayOfWeek = document.getElementById('dayOfWeek').value;
+            const startTime = document.getElementById('startTime').value;
+            const endTime = document.getElementById('endTime').value;
+            const errorMsg = document.getElementById('errorMsg');
+            const grid = document.getElementById('roomsGrid');
+            const emptyState = document.getElementById('emptyState');
+            errorMsg.style.display = 'none'; grid.style.display = 'none'; emptyState.style.display = 'none';
+            if (!startTime || !endTime) { errorMsg.innerText = "Please select start and end times"; errorMsg.style.display = 'block'; return; }
+            const btn = document.getElementById('findBtn');
+            const loader = document.getElementById('findLoader');
+            const textSpan = btn.querySelector('.btn-text');
+            btn.disabled = true; textSpan.style.display = 'none'; loader.style.display = 'block';
+            try {
+                const res = await fetch(API_BASE + '/api/vacant', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ dayOfWeek, startTime, endTime }) });
+                const data = await res.json();
+                if (!res.ok) throw new Error(data.error || "Failed to find rooms");
+                if (data.vacantRooms.length === 0) { emptyState.style.display = 'block'; }
+                else {
+                    grid.innerHTML = '';
+                    data.vacantRooms.forEach(room => {
+                        const card = document.createElement('div'); card.className = 'room-card';
+                        card.innerText = room.name; grid.appendChild(card);
+                    });
+                    grid.style.display = 'grid';
+                }
+            } catch (err) { errorMsg.innerText = err.message; errorMsg.style.display = 'block'; }
+            finally { btn.disabled = false; textSpan.style.display = 'block'; loader.style.display = 'none'; }
+        }
+    </script>
+</body>
+</html>
+
+
+
+
+
+
+
+

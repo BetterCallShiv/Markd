@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Markd - Ultimate Smart Attendance & Timetable Manager</title>
-    <meta name="description" content="A specialized attendance tracker and schedule manager designed for students.">
+    <meta name="description" content="Markd - Ultimate Smart Attendance & Timetable Manager Designed For Students.">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
@@ -23,6 +23,36 @@
             --radius-lg: 24px;
             --radius-md: 16px;
         }
+
+        :root[data-theme="dark"] {
+            --primary: #5A7DCF;
+            --primary-container: #1C2D5A;
+            --on-primary-container: #DBE1FF;
+            --tertiary: #A5A3C7;
+            --background: #121418;
+            --surface: #1E2024;
+            --on-surface: #E2E2E6;
+            --on-surface-variant: #C4C6D0;
+            --outline: #8E9099;
+        }
+        :root[data-theme="dark"] .feature-card { background: var(--surface); border-color: rgba(255,255,255,0.08); }
+        :root[data-theme="dark"] .feature-card:hover { background: var(--background); }
+        :root[data-theme="dark"] .screenshot-item { box-shadow: 0 15px 35px rgba(0,0,0,0.3); }
+        :root[data-theme="dark"] .github-btn { background-color: #3a3f47; }
+        :root[data-theme="dark"] .github-btn:hover { background-color: #4a4f57; }
+        @media (prefers-color-scheme: dark) {
+            :root:not([data-theme="light"]) {
+                --primary: #5A7DCF; --primary-container: #1C2D5A; --on-primary-container: #DBE1FF;
+                --tertiary: #A5A3C7; --background: #121418; --surface: #1E2024;
+                --on-surface: #E2E2E6; --on-surface-variant: #C4C6D0; --outline: #8E9099;
+            }
+            :root:not([data-theme="light"]) .feature-card { background: var(--surface); border-color: rgba(255,255,255,0.08); }
+            :root:not([data-theme="light"]) .feature-card:hover { background: var(--background); }
+            :root:not([data-theme="light"]) .screenshot-item { box-shadow: 0 15px 35px rgba(0,0,0,0.3); }
+            :root:not([data-theme="light"]) .github-btn { background-color: #3a3f47; }
+            :root:not([data-theme="light"]) .github-btn:hover { background-color: #4a4f57; }
+        }
+
 
         * {
             box-sizing: border-box;
@@ -177,7 +207,7 @@
         }
 
         .highlight-box {
-            background-color: #F0F3FF;
+            background-color: var(--background);
             padding: 24px;
             border-radius: var(--radius-md);
             border-left: 4px solid var(--primary);
@@ -199,7 +229,7 @@
         }
 
         .feature-card {
-            background: #F8F9FF;
+            background: var(--background);
             border: 1px solid rgba(59, 91, 169, 0.1);
             border-radius: var(--radius-md);
             padding: 24px;
@@ -307,8 +337,8 @@
         footer {
             padding: 40px;
             text-align: center;
-            border-top: 1px solid #eee;
-            background-color: #fafafa;
+            border-top: 1px solid var(--outline);
+            background-color: var(--background);
         }
 
         .footer-text {
@@ -390,6 +420,7 @@
 <body>
     <div class="main-container">
         <header>
+            <button id="themeToggle" onclick="toggleTheme()" aria-label="Toggle theme" style="position:absolute;top:20px;right:20px;width:40px;height:40px;border-radius:50%;padding:0;display:flex;align-items:center;justify-content:center;background:transparent;border:1px solid var(--outline);color:var(--on-surface);box-shadow:none;cursor:pointer;"><svg id="themeIcon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path></svg></button>
             <div class="logo-container">
                 <img src="src/logo.png" alt="Markd Logo">
             </div>
@@ -535,6 +566,29 @@
                 &bull; &copy; 2026 Nidus Apps.</p>
         </footer>
     </div>
+    <script>
+        function toggleTheme() {
+            const root = document.documentElement;
+            const currentTheme = root.getAttribute('data-theme');
+            const newTheme = currentTheme === 'dark' ? 'light' : (currentTheme === 'light' ? 'dark' : (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'light' : 'dark'));
+            root.setAttribute('data-theme', newTheme);
+            localStorage.setItem('theme', newTheme);
+            updateThemeIcon(newTheme);
+        }
+        function updateThemeIcon(theme) {
+            const isDark = theme === 'dark' || (theme !== 'light' && window.matchMedia('(prefers-color-scheme: dark)').matches);
+            const icon = document.getElementById('themeIcon');
+            if (icon) {
+                if (isDark) {
+                    icon.innerHTML = '<circle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>';
+                } else {
+                    icon.innerHTML = '<path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>';
+                }
+            }
+        }
+        const savedTheme = localStorage.getItem('theme');
+        if (savedTheme) document.documentElement.setAttribute('data-theme', savedTheme);
+        document.addEventListener("DOMContentLoaded", () => { updateThemeIcon(savedTheme); });
+    </script>
 </body>
-
 </html>
