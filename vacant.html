@@ -559,7 +559,12 @@
                             
                             blocks[blockName].forEach(room => {
                                 const card = document.createElement('div'); card.className = 'room-card';
-                                card.title = room.name; card.innerText = room.name; innerGrid.appendChild(card);
+                                card.title = room.name; card.innerText = room.name; 
+                                if (room.color) {
+                                    card.style.borderLeftColor = room.color;
+                                    card.style.background = 'linear-gradient(to right, ' + room.color + '1A, var(--surface))';
+                                }
+                                innerGrid.appendChild(card);
                             });
                             
                             section.appendChild(innerGrid);
