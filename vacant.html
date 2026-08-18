@@ -96,11 +96,11 @@
         .footer-links { margin-bottom: 20px; }
         .footer-links a { font-weight: 500; }
         .footer-text { color: var(--on-surface-variant); font-size: 15px; font-weight: 500; margin: 0; }
-        .rooms-grid { display: none; grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)); gap: 1rem; margin-top: 2rem; }
+        .rooms-grid { display: none; grid-template-columns: repeat(auto-fill, minmax(130px, 1fr)); gap: 0.75rem; margin-top: 2rem; }
         .room-card {
             background: var(--surface); border: 1px solid rgba(59, 91, 169, 0.1);
             border-left: 5px solid var(--primary); border-radius: var(--radius-md);
-            padding: 1.25rem; font-weight: 600; color: var(--on-primary-container); text-align: center;
+            padding: 0.75rem; font-weight: 600; font-size: 0.95rem; color: var(--on-primary-container); text-align: center;
             transition: transform 0.3s, box-shadow 0.3s;
         }
         .room-card:hover { transform: translateY(-3px); box-shadow: 0 10px 25px rgba(59, 91, 169, 0.08); }
@@ -109,6 +109,7 @@
             .content { padding: 30px 25px; }
             header { padding: 40px 20px; }
             .form-row { grid-template-columns: 1fr; gap: 0; }
+            .rooms-grid { grid-template-columns: 1fr 1fr; gap: 0.5rem; }
             h1 { font-size: 28px; }
         }
     </style>
@@ -202,7 +203,7 @@
                     globalPeriods.forEach((p) => {
                         const option1 = document.createElement('option');
                         option1.value = p.start;
-                        option1.innerText = p.start + " (" + p.name + ")";
+                        option1.innerText = p.start;
                         startSelect.appendChild(option1);
                     });
                     updateEndTimeOptions();
@@ -227,7 +228,7 @@
                 if (foundStart) {
                     const option2 = document.createElement('option');
                     option2.value = p.end;
-                    option2.innerText = p.end + " (" + p.name + ")";
+                    option2.innerText = p.end;
                     endSelect.appendChild(option2);
                 }
             });
@@ -265,6 +266,9 @@
     </script>
 </body>
 </html>
+
+
+
 
 
 
