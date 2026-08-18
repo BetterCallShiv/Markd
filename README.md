@@ -93,7 +93,7 @@
 
 ## 🛡️ Privacy Policy
 
-All user data is stored locally within an encrypted Room database. The app operates offline, ensuring no personal scheduling data is transmitted externally unless explicitly exported by the user. 
+All user data is stored locally within a Room database. The app operates offline, ensuring no personal data is transmitted externally unless explicitly exported by the user. 
 
 Review the complete [Privacy Policy](https://bettercallshiv.github.io/Markd/privacy-policy.html) for more details.
 
