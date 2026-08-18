@@ -109,10 +109,10 @@
             .content { padding: 30px 25px; }
             header { padding: 40px 20px; }
             .form-row { grid-template-columns: 1fr; gap: 0; }
-            footer { padding: 2rem 0.5rem; } .footer-links { font-size: 13px; white-space: nowrap; } .footer-links a { font-size: 13px; } .footer-text { font-size: 13px; }
+            footer { padding: 2rem 0.5rem; } .footer-links { font-size: 13px; white-space: nowrap; } .footer-links a { font-size: 13px; }
             .rooms-grid { grid-template-columns: 1fr 1fr; gap: 0.5rem; }
             h1 { font-size: 28px; }
-            footer { padding: 2rem 0.5rem; } .footer-text { font-size: 13px; }
+            footer { padding: 2rem 0.5rem; }
         }
     </style>
 </head>
@@ -122,7 +122,7 @@
             <button id="themeToggle" onclick="toggleTheme()" aria-label="Toggle theme" style="position: absolute; top: 20px; right: 20px; width: 40px; height: 40px; border-radius: 50%; padding: 0; display: flex; align-items: center; justify-content: center; background: transparent; border: 1px solid var(--outline); color: var(--on-surface); box-shadow: none;">
                 <svg id="themeIcon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path></svg>
             </button>
-            <div class="logo-container"><a href="https://play.google.com/store/apps/details?id=org.nidusapps.markd" target="_blank"><img src="src/logo.png" alt="Markd Logo"></a></div>
+            <div class="logo-container"><img src="src/logo.png" alt="Markd Logo" onclick="window.open('https://play.google.com/store/apps/details?id=org.nidusapps.markd', '_blank')" style="cursor: pointer;"></div>
             <h1>Markd</h1>
             <div class="subtitle">Vacant Classrooms Finder</div>
             <div class="header-desc">For IILM University, Greater Noida</div>
@@ -268,6 +268,9 @@
     </script>
 </body>
 </html>
+
+
+
 
 
 
