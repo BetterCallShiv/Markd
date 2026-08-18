@@ -1,10 +1,12 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Vacant Classrooms Finder - Markd</title>
-    <meta name="description" content="Find vacant classrooms at IILM University Greater Noida. Select a day and time slot to discover available rooms.">
+    <meta name="description"
+        content="Find vacant classrooms at IILM University Greater Noida. Select a day and time slot to discover available rooms.">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
@@ -21,6 +23,7 @@
             --radius-lg: 24px;
             --radius-md: 16px;
         }
+
         :root[data-theme="dark"] {
             --primary: #5A7DCF;
             --primary-container: #1C2D5A;
@@ -31,99 +34,362 @@
             --on-surface-variant: #C4C6D0;
             --outline: #8E9099;
         }
+
         :root[data-theme="dark"] .room-card {
             border-top-color: rgba(255, 255, 255, 0.1);
             border-right-color: rgba(255, 255, 255, 0.1);
             border-bottom-color: rgba(255, 255, 255, 0.1);
         }
+
         @media (prefers-color-scheme: dark) {
             :root:not([data-theme="light"]) {
-                --primary: #5A7DCF; --primary-container: #1C2D5A; --on-primary-container: #DBE1FF;
-                --background: #121418; --surface: #1E2024; --on-surface: #E2E2E6;
-                --on-surface-variant: #C4C6D0; --outline: #8E9099;
+                --primary: #5A7DCF;
+                --primary-container: #1C2D5A;
+                --on-primary-container: #DBE1FF;
+                --background: #121418;
+                --surface: #1E2024;
+                --on-surface: #E2E2E6;
+                --on-surface-variant: #C4C6D0;
+                --outline: #8E9099;
             }
+
             :root:not([data-theme="light"]) .room-card {
                 border-top-color: rgba(255, 255, 255, 0.1);
                 border-right-color: rgba(255, 255, 255, 0.1);
                 border-bottom-color: rgba(255, 255, 255, 0.1);
             }
         }
-        * { box-sizing: border-box; margin: 0; padding: 0; transition: all 0.2s ease-in-out; }
-        a { color: var(--primary); text-decoration: none; font-weight: 600; border-bottom: 1px solid transparent; }
-        a:hover { border-bottom: 1px solid var(--primary); }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            transition: all 0.2s ease-in-out;
+        }
+
+        a {
+            color: var(--primary);
+            text-decoration: none;
+            font-weight: 600;
+            border-bottom: 1px solid transparent;
+        }
+
+        a:hover {
+            border-bottom: 1px solid var(--primary);
+        }
+
         body {
             font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-            line-height: 1.6; color: var(--on-surface); background-color: var(--background);
-            margin: 0; padding: 0; display: flex; flex-direction: column; align-items: center; min-height: 100vh;
+            line-height: 1.6;
+            color: var(--on-surface);
+            background-color: var(--background);
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            min-height: 100vh;
         }
+
         .main-container {
-            max-width: 850px; width: 100%; margin: 20px 20px; background-color: var(--surface);
-            border-radius: var(--radius-lg); box-shadow: 0 10px 40px rgba(59, 91, 169, 0.08);
-            overflow: hidden; border: 1px solid rgba(59, 91, 169, 0.05);
+            max-width: 850px;
+            width: 100%;
+            margin: 20px 20px;
+            background-color: var(--surface);
+            border-radius: var(--radius-lg);
+            box-shadow: 0 10px 40px rgba(59, 91, 169, 0.08);
+            overflow: hidden;
+            border: 1px solid rgba(59, 91, 169, 0.05);
         }
-        header { background-color: var(--primary-container); padding: 40px 40px 36px; text-align: center; position: relative; }
+
+        header {
+            background-color: var(--primary-container);
+            padding: 40px 40px 36px;
+            text-align: center;
+            position: relative;
+        }
+
         .logo-container {
-            width: 80px; height: 80px; background-color: var(--surface); border-radius: 20px;
-            margin: 0 auto 20px; display: flex; justify-content: center; align-items: center;
-            box-shadow: 0 8px 16px rgba(59, 91, 169, 0.2); overflow: hidden;
+            width: 80px;
+            height: 80px;
+            background-color: var(--surface);
+            border-radius: 20px;
+            margin: 0 auto 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            box-shadow: 0 8px 16px rgba(59, 91, 169, 0.2);
+            overflow: hidden;
         }
-        .logo-container img { width: 120%; height: 120%; object-fit: cover; }
-        h1 { color: var(--on-primary-container); margin: 0 0 8px; font-size: 32px; font-weight: 800; letter-spacing: -0.5px; }
-        .subtitle { color: var(--primary); font-size: 16px; font-weight: 600; margin: 0 0 8px; }
-        .header-desc { color: var(--on-primary-container); opacity: 0.8; font-size: 14px; margin: 0 0 12px; }
-        .content { padding: 50px 60px; }
-        .highlight-box { background-color: var(--background); padding: 24px; border-radius: var(--radius-md); border-left: 4px solid var(--primary); margin: 0 0 30px; }
-        .highlight-box p { margin: 0; font-weight: 500; color: var(--on-primary-container); font-size: 15px; }
-        .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; margin-bottom: 1.5rem; }
-        .form-group { margin-bottom: 1.5rem; }
-        .form-group label { display: block; margin-bottom: 0.5rem; font-weight: 600; color: var(--on-primary-container); font-size: 0.95rem; }
+
+        .logo-container img {
+            width: 120%;
+            height: 120%;
+            object-fit: cover;
+        }
+
+        h1 {
+            color: var(--on-primary-container);
+            margin: 0 0 8px;
+            font-size: 32px;
+            font-weight: 800;
+            letter-spacing: -0.5px;
+        }
+
+        .subtitle {
+            color: var(--primary);
+            font-size: 16px;
+            font-weight: 600;
+            margin: 0 0 8px;
+        }
+
+        .header-desc {
+            color: var(--on-primary-container);
+            opacity: 0.8;
+            font-size: 14px;
+            margin: 0 0 12px;
+        }
+
+        .content {
+            padding: 50px 60px;
+        }
+
+        .highlight-box {
+            background-color: var(--background);
+            padding: 24px;
+            border-radius: var(--radius-md);
+            border-left: 4px solid var(--primary);
+            margin: 0 0 30px;
+        }
+
+        .highlight-box p {
+            margin: 0;
+            font-weight: 500;
+            color: var(--on-primary-container);
+            font-size: 15px;
+        }
+
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1.5rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 600;
+            color: var(--on-primary-container);
+            font-size: 0.95rem;
+        }
+
         select {
-            width: 100%; padding: 1rem; border-radius: var(--radius-md); border: 1px solid var(--outline);
-            background: var(--surface); color: var(--on-surface); font-size: 1rem; font-family: 'Inter', sans-serif; outline: none;
+            width: 100%;
+            padding: 1rem;
+            border-radius: var(--radius-md);
+            border: 1px solid var(--outline);
+            background: var(--surface);
+            color: var(--on-surface);
+            font-size: 1rem;
+            font-family: 'Inter', sans-serif;
+            outline: none;
         }
-        select:focus { border-color: var(--primary); box-shadow: 0 0 0 4px rgba(59, 91, 169, 0.1); }
+
+        select:focus {
+            border-color: var(--primary);
+            box-shadow: 0 0 0 4px rgba(59, 91, 169, 0.1);
+        }
+
         button {
-            width: 100%; padding: 1rem; border-radius: var(--radius-md); border: none; background: var(--primary);
-            color: white; font-size: 1rem; font-weight: 600; cursor: pointer;
-            box-shadow: 0 4px 12px rgba(59, 91, 169, 0.2); font-family: 'Inter', sans-serif;
+            width: 100%;
+            padding: 1rem;
+            border-radius: var(--radius-md);
+            border: none;
+            background: var(--primary);
+            color: white;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            box-shadow: 0 4px 12px rgba(59, 91, 169, 0.2);
+            font-family: 'Inter', sans-serif;
         }
-        button:hover { transform: translateY(-2px); box-shadow: 0 6px 16px rgba(59, 91, 169, 0.3); }
-        button:disabled { opacity: 0.5; cursor: not-allowed; transform: none; }
-        .loader { display: none; width: 24px; height: 24px; border: 3px solid rgba(255,255,255,0.3); border-radius: 50%; border-top-color: #fff; animation: spin 1s ease-in-out infinite; margin: 0 auto; }
-        @keyframes spin { to { transform: rotate(360deg); } }
-        .error { color: #D32F2F; background: rgba(211,47,47,0.1); padding: 1rem; border-radius: var(--radius-md); margin-top: 1rem; display: none; border: 1px solid rgba(211, 47, 47, 0.2); font-weight: 500; }
-        footer { padding: 40px; text-align: center; border-top: 1px solid var(--outline); background-color: var(--background); }
-        .footer-links { margin-bottom: 20px; }
-        .footer-links a { font-weight: 500; }
-        .footer-text { color: var(--on-surface-variant); font-size: 15px; font-weight: 500; margin: 0; }
-        .rooms-grid { display: none; grid-template-columns: repeat(auto-fill, minmax(130px, 1fr)); gap: 0.75rem; margin-top: 2rem; }
+
+        button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 16px rgba(59, 91, 169, 0.3);
+        }
+
+        button:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        .loader {
+            display: none;
+            width: 24px;
+            height: 24px;
+            border: 3px solid rgba(255, 255, 255, 0.3);
+            border-radius: 50%;
+            border-top-color: #fff;
+            animation: spin 1s ease-in-out infinite;
+            margin: 0 auto;
+        }
+
+        @keyframes spin {
+            to {
+                transform: rotate(360deg);
+            }
+        }
+
+        .error {
+            color: #D32F2F;
+            background: rgba(211, 47, 47, 0.1);
+            padding: 1rem;
+            border-radius: var(--radius-md);
+            margin-top: 1rem;
+            display: none;
+            border: 1px solid rgba(211, 47, 47, 0.2);
+            font-weight: 500;
+        }
+
+        footer {
+            padding: 40px;
+            text-align: center;
+            border-top: 1px solid var(--outline);
+            background-color: var(--background);
+        }
+
+        .footer-links {
+            margin-bottom: 20px;
+        }
+
+        .footer-links a {
+            font-weight: 500;
+        }
+
+        .footer-text {
+            color: var(--on-surface-variant);
+            font-size: 15px;
+            font-weight: 500;
+            margin: 0;
+        }
+
+        .blocks-container {
+            display: none;
+            margin-top: 2rem;
+        }
+
+        .block-section {
+            margin-bottom: 2.5rem;
+        }
+
+        .block-title {
+            font-size: 1.1rem;
+            font-weight: 700;
+            color: var(--on-primary-container);
+            margin-bottom: 1rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 2px solid rgba(59, 91, 169, 0.2);
+        }
+
+        .rooms-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(130px, 1fr));
+            gap: 0.75rem;
+        }
+
         .room-card {
-            background: var(--surface); border: 1px solid rgba(59, 91, 169, 0.1);
-            border-left: 5px solid var(--primary); border-radius: var(--radius-md);
-            padding: 0.75rem; font-weight: 600; font-size: 0.95rem; color: var(--on-primary-container); text-align: center;
+            background: var(--surface);
+            border: 1px solid rgba(59, 91, 169, 0.1);
+            border-left: 5px solid var(--primary);
+            border-radius: var(--radius-md);
+            padding: 0.75rem;
+            font-weight: 600;
+            font-size: 0.95rem;
+            color: var(--on-primary-container);
+            text-align: center;
             transition: transform 0.3s, box-shadow 0.3s;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
         }
-        .room-card:hover { transform: translateY(-3px); box-shadow: 0 10px 25px rgba(59, 91, 169, 0.08); }
-        #emptyState { display: none; margin-top: 2rem; text-align: center; color: var(--on-surface-variant); font-weight: 500; }
+
+        .room-card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 25px rgba(59, 91, 169, 0.08);
+        }
+
+        #emptyState {
+            display: none;
+            margin-top: 2rem;
+            text-align: center;
+            color: var(--on-surface-variant);
+            font-weight: 500;
+        }
+
         @media (max-width: 600px) {
-            .content { padding: 30px 25px; }
-            header { padding: 40px 20px; }
-            .form-row { grid-template-columns: 1fr; gap: 0; }
-            footer { padding: 2rem 0.5rem; } .footer-links { font-size: 13px; white-space: nowrap; } .footer-links a { font-size: 13px; }
-            .rooms-grid { grid-template-columns: 1fr 1fr; gap: 0.5rem; }
-            h1 { font-size: 28px; }
-            footer { padding: 2rem 0.5rem; }
+            .content {
+                padding: 30px 25px;
+            }
+
+            header {
+                padding: 40px 20px;
+            }
+
+            .form-row {
+                grid-template-columns: 1fr;
+                gap: 0;
+            }
+
+            footer {
+                padding: 2rem 0.5rem;
+            }
+
+            .footer-links {
+                font-size: 13px;
+                white-space: nowrap;
+            }
+
+            .footer-links a {
+                font-size: 13px;
+            }
+
+            .rooms-grid {
+                grid-template-columns: 1fr 1fr;
+                gap: 0.5rem;
+            }
+
+            h1 {
+                font-size: 28px;
+            }
+
+            footer {
+                padding: 2rem 0.5rem;
+            }
         }
     </style>
     <link rel="icon" type="image/png" href="src/circle_logo.png">
 </head>
+
 <body>
     <div class="main-container">
         <header>
-            <button id="themeToggle" onclick="toggleTheme()" aria-label="Toggle theme" style="position: absolute; top: 20px; right: 20px; width: 40px; height: 40px; border-radius: 50%; padding: 0; display: flex; align-items: center; justify-content: center; background: transparent; border: 1px solid var(--outline); color: var(--on-surface); box-shadow: none;">
-                <svg id="themeIcon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path></svg>
+            <button id="themeToggle" onclick="toggleTheme()" aria-label="Toggle theme"
+                style="position: absolute; top: 20px; right: 20px; width: 40px; height: 40px; border-radius: 50%; padding: 0; display: flex; align-items: center; justify-content: center; background: transparent; border: 1px solid var(--outline); color: var(--on-surface); box-shadow: none;">
+                <svg id="themeIcon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                    stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+                </svg>
             </button>
-            <div class="logo-container"><img src="src/logo.png" alt="Markd Logo" onclick="window.open('https://play.google.com/store/apps/details?id=org.nidusapps.markd', '_blank')" style="cursor: pointer;"></div>
+            <div class="logo-container"><img src="src/logo.png" alt="Markd Logo"
+                    onclick="window.open('https://play.google.com/store/apps/details?id=org.nidusapps.markd', '_blank')"
+                    style="cursor: pointer;"></div>
             <h1>Markd</h1>
             <div class="subtitle">Vacant Classrooms Finder</div>
             <div class="header-desc">For IILM University, Greater Noida</div>
@@ -155,18 +421,20 @@
                 </div>
             </div>
             <button id="findBtn" onclick="findRooms()">
-                <span class="btn-text">Find Classrooms</span>
+                <span class="btn-text">Find Vacant Classrooms</span>
                 <div class="loader" id="findLoader"></div>
             </button>
             <div class="error" id="errorMsg"></div>
-            <div id="roomsGrid" class="rooms-grid"></div>
+            <div id="roomsGrid" class="blocks-container"></div>
             <div id="emptyState">No vacant rooms found for this time slot.</div>
         </div>
         <footer>
             <p class="footer-links">
-                <a href="index.html">Home</a> &nbsp;|&nbsp; <a href="timetable.html">Timetable Generator</a> &nbsp;|&nbsp; <a href="vacant.html">Vacant Classrooms Finder</a>
+                <a href="index.html">Home</a> &nbsp;|&nbsp; <a href="timetable.html">Timetable Generator</a>
+                &nbsp;|&nbsp; <a href="vacant.html">Vacant Classrooms Finder</a>
             </p>
-            <p class="footer-text">Built by <a href="https://github.com/BetterCallShiv" target="_blank">Shivam Raj</a> &bull; &copy; 2026 Nidus Apps.</p>
+            <p class="footer-text">Built by <a href="https://github.com/BetterCallShiv" target="_blank">Shivam Raj</a>
+                &bull; &copy; 2026 Nidus Apps.</p>
         </footer>
     </div>
     <script>
@@ -257,35 +525,57 @@
                 if (data.vacantRooms.length === 0) { emptyState.style.display = 'block'; }
                 else {
                     grid.innerHTML = '';
+                    
+                    function getBlock(name) {
+                        const n = name.toUpperCase().trim();
+                        if (n.startsWith("SVH")) return "SVH Block";
+                        if (n.startsWith("LAW")) return "Law Block";
+                        if (n.startsWith("FOUNDATION")) return "Foundation Block";
+                        if (n.includes("EB ") || n.startsWith("EB")) return "EB Block";
+                        return "Other Labs & Rooms";
+                    }
+
+                    const blocks = {};
+                    data.vacantRooms.sort((a, b) => a.name.localeCompare(b.name));
                     data.vacantRooms.forEach(room => {
-                        const card = document.createElement('div'); card.className = 'room-card';
-                        card.innerText = room.name; grid.appendChild(card);
+                        const blockName = getBlock(room.name);
+                        if (!blocks[blockName]) blocks[blockName] = [];
+                        blocks[blockName].push(room);
                     });
-                    grid.style.display = 'grid';
+                    
+                    // Order of rendering: Foundation, EB, Law, SVH, Others
+                    const blockOrder = ["Foundation Block", "EB Block", "Law Block", "SVH Block", "Other Labs & Rooms"];
+                    
+                    blockOrder.forEach(blockName => {
+                        if (blocks[blockName] && blocks[blockName].length > 0) {
+                            const section = document.createElement('div');
+                            section.className = 'block-section';
+                            
+                            const title = document.createElement('div');
+                            title.className = 'block-title';
+                            title.innerText = blockName;
+                            section.appendChild(title);
+                            
+                            const innerGrid = document.createElement('div');
+                            innerGrid.className = 'rooms-grid';
+                            
+                            blocks[blockName].forEach(room => {
+                                const card = document.createElement('div'); card.className = 'room-card';
+                                card.title = room.name; card.innerText = room.name; innerGrid.appendChild(card);
+                            });
+                            
+                            section.appendChild(innerGrid);
+                            grid.appendChild(section);
+                        }
+                    });
+                    
+                    grid.style.display = 'block';
                 }
             } catch (err) { errorMsg.innerText = err.message; errorMsg.style.display = 'block'; }
             finally { btn.disabled = false; textSpan.style.display = 'block'; loader.style.display = 'none'; }
         }
     </script>
 </body>
+
 </html>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
