@@ -526,9 +526,9 @@
                     
                     function getBlock(name) {
                         const n = name.toUpperCase().trim();
-                        if (n.startsWith("SVH")) return "SVH Block";
-                        if (n.startsWith("LAW")) return "Law Block";
-                        if (n.startsWith("FOUNDATION")) return "Foundation Block";
+                        if (n.includes("SVH")) return "SVH Block";
+                        if (n.includes("LAW")) return "Law Block";
+                        if (n.includes("FOUNDATION")) return "Foundation Block";
                         if (n.includes("EB ") || n.startsWith("EB")) return "Engineering Block";
                         return "Other Labs & Rooms";
                     }
