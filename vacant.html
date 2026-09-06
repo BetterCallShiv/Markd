@@ -423,6 +423,7 @@
                 <div class="loader" id="findLoader"></div>
             </button>
             <div class="error" id="errorMsg"></div>
+            <div id="totalRoomsBadge" style="text-align: center; margin-bottom: 15px; font-weight: 500; color: var(--on-surface-variant); display: none; font-size: 14px; background: var(--surface-container-high); padding: 4px 12px; border-radius: 12px; width: fit-content; margin-left: auto; margin-right: auto;"></div>
             <div id="roomsGrid" class="blocks-container"></div>
             <div id="emptyState">No vacant rooms found for this time slot.</div>
         </div>
@@ -510,7 +511,9 @@
             const errorMsg = document.getElementById('errorMsg');
             const grid = document.getElementById('roomsGrid');
             const emptyState = document.getElementById('emptyState');
+            const badge = document.getElementById('totalRoomsBadge');
             errorMsg.style.display = 'none'; grid.style.display = 'none'; emptyState.style.display = 'none';
+            if (badge) badge.style.display = 'none';
             if (!startTime || !endTime) { errorMsg.innerText = "Please select start and end times"; errorMsg.style.display = 'block'; return; }
             const btn = document.getElementById('findBtn');
             const loader = document.getElementById('findLoader');
@@ -523,6 +526,10 @@
                 if (data.vacantRooms.length === 0) { emptyState.style.display = 'block'; }
                 else {
                     grid.innerHTML = '';
+                    if (badge) {
+                        badge.textContent = `Total Vacant Rooms Found: ${data.vacantRooms.length}`;
+                        badge.style.display = 'block';
+                    }
                     
                     function getBlock(name) {
                         const n = name.toUpperCase().trim();
