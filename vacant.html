@@ -304,6 +304,10 @@
             gap: 0.75rem;
         }
 
+        .other-labs-grid {
+            grid-template-columns: repeat(2, 1fr);
+        }
+
         .room-card {
             background: var(--surface);
             border: 1px solid rgba(59, 91, 169, 0.1);
@@ -562,7 +566,7 @@
                             section.appendChild(title);
                             
                             const innerGrid = document.createElement('div');
-                            innerGrid.className = 'rooms-grid';
+                            innerGrid.className = blockName === 'Other Labs & Rooms' ? 'rooms-grid other-labs-grid' : 'rooms-grid';
                             
                             blocks[blockName].forEach(room => {
                                 const card = document.createElement('div'); card.className = 'room-card';
