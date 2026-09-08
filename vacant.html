@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Vacant Classrooms Finder - Markd</title>
+    <title>Vacant Classrooms Finder IILM - Markd</title>
     <meta name="description"
         content="Find vacant classrooms at IILM University Greater Noida. Select a day and time slot to discover available rooms.">
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -555,10 +555,7 @@
                         if (!blocks[blockName]) blocks[blockName] = [];
                         blocks[blockName].push(room);
                     });
-                    
-                    // Order of rendering: Foundation, EB, Law, SVH, Others
                     const blockOrder = ["Foundation Block", "Engineering Block", "Law Block", "SVH Block", "Other Labs & Rooms"];
-                    
                     blockOrder.forEach(blockName => {
                         if (blocks[blockName] && blocks[blockName].length > 0) {
                             const section = document.createElement('div');
@@ -594,7 +591,6 @@
         }
     </script>
 </body>
-
 </html>
 
 
